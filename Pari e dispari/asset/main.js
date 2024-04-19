@@ -1,82 +1,55 @@
-// L’utente sceglie pari o dispari e inserisce un numero da 1 a 5.
-// Generiamo un numero random (sempre da 1 a 5) per il computer (usando una funzione).
-// Sommiamo i due numeri
-// Stabiliamo se la somma dei due numeri è pari o dispari (usando una funzione)
-// Dichiariamo chi ha vinto.
+document.addEventListener("DOMContentLoaded", function() {
+    const playBtn = document.getElementById('play-btn');
+    const choiceSelect = document.getElementById('choice');
+    const numberInput = document.getElementById('number');
+    const resultDiv = document.getElementById('result');
 
+    playBtn.addEventListener('click', function() {
+        // Recupera i valori scelti dall'utente
+        const userChoice = choiceSelect.value;
+        const userNumber = parseInt(numberInput.value);
 
+        // Validazione dei campi
+        if (userChoice !== "pari" && userChoice !== "dispari") {
+            alert("Per favore, scegli 'pari' o 'dispari'.");
+            return;
+        }
 
-// chiedo all'utente se sceglie pari o dispari
-let tocco = prompt(`Pari o Dispari?`);
-console.log(tocco);
+        if (isNaN(userNumber) || userNumber < 1 || userNumber > 5) {
+            alert("Per favore, inserisci un numero da 1 a 5.");
+            return;
+        }
 
+        // Genera un numero random per il computer
+        const computerNumber = numeroRandom(1, 5);
 
+        // Calcola la somma dei due numeri
+        const sum = userNumber + computerNumber;
 
-// chiedo all'utente di darmi un numero da 1 a 5
-let numeroUtente = parseInt(prompt(`inserisci un numero da 1 a 5!`));
-console.log(numeroUtente);
+        // Stabilisce se la somma è pari o dispari
+        const isSumEven = isEven(sum);
 
+        // Dichiarazione del risultato
+        let resultText = "";
+        if ((userChoice === "pari" && isSumEven) || (userChoice === "dispari" && !isSumEven)) {
+            resultText = "Hai vinto!";
+            window.location = "https://www.youtube.com/watch?v=hnAnUtUq_FA&ab_channel=SuperSardus8";
+        } else {
+            resultText = "Hai perso!";
+            window.location = "https://www.youtube.com/watch?v=_bckcpIUBo8&ab_channel=TheRealBrendon";
+        }
 
-// sviluppo la funzione per dare un numero random al pc
-function numeroRandom(min, max) {
-    let numeroPC = (Math.floor(Math.random() * max) + min );
-    return numeroPc;
-}
-let numeroPc = (1,5);
-console.log(numeroPc);
+        // Visualizza il risultato
+        resultDiv.textContent = resultText;
+    });
 
-
-// sommo i due numeri, utente + pc
-let somma = ( numeroUtente + numeroRandom(1, 5) );
-console.log(somma);
-
-
-
-// sviluppo la funzione del pari e dispari
-function isEven (somma) {
-    if ( somma % 2 == 0 ){
-
-        return true; // è pari
-
-    } else {
-
-        return false; // è dispari
-        
+    // Funzione per generare un numero random tra min e max
+    function numeroRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-}
-console.log(isEven(somma));
 
-
-// dichiariamo se abbiamo vinto o meno
-if ( tocco === "pari" && isEven(somma) === true ) {
-    
-    console.log(`Hai vinto!`);
-    alert(`Hai vinto`);
-    window.location = "https://www.youtube.com/watch?v=hnAnUtUq_FA&ab_channel=SuperSardus8";
-
-}
-
-if (tocco === "dispari" && isEven(somma) === false ) {
-    
-    console.log(`Hai vinto!`);
-    alert(`Hai vinto!`);
-    window.location = "https://www.youtube.com/watch?v=hnAnUtUq_FA&ab_channel=SuperSardus8";
-
-}
-
-if 
-   (tocco === "pari" && isEven(somma) === false ) {
-
-    console.log(`Hai perso!`);
-    alert(`Hai perso!`);
-    window.location = "https://www.youtube.com/watch?v=_bckcpIUBo8&ab_channel=TheRealBrendon";
-
-}
-
-if (tocco === "dispari" && isEven(somma) === true ) {
-
-    console.log(`Hai perso!`);
-    alert(`Hai perso!`);
-    window.location = "https://www.youtube.com/watch?v=_bckcpIUBo8&ab_channel=TheRealBrendon";
-
-}
+    // Funzione per determinare se un numero è pari o dispari
+    function isEven(number) {
+        return number % 2 === 0;
+    }
+});
